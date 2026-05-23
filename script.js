@@ -9,22 +9,85 @@
     contactForm: document.getElementById('contactForm'),
     nameInput: document.getElementById('name'),
     emailInput: document.getElementById('email'),
-    messageInput: document.getElementById('message')
+    messageInput: document.getElementById('message'),
+    messageOverlay: document.getElementById('messageOverlay'),
+    messageBox: document.getElementById('messageBox'),
+    messageText: document.getElementById('messageText'),
+    messageOkBtn: document.getElementById('messageOkBtn')
   };
 
   let isAnimating = false;
+  let isMessageAnimating = false;
   let isSubmitting = false;
-
-  function sanitizeInput(input) {
-    if (typeof input !== 'string') return input;
-    const div = document.createElement('div');
-    div.textContent = input;
-    return div.innerHTML;
-  }
+  let messageOnClose = null;
 
   function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  }
+
+  function showMessage(message, onClose) {
+    if (!elements.messageOverlay || !elements.messageBox || !elements.messageText || isMessageAnimating) {
+      return;
+    }
+
+    messageOnClose = typeof onClose === 'function' ? onClose : null;
+    elements.messageText.textContent = message;
+
+    isMessageAnimating = true;
+    elements.messageOverlay.classList.remove('hidden');
+    elements.messageOverlay.classList.add('flex');
+
+    elements.messageOverlay.classList.add('overlay-enter');
+    elements.messageBox.classList.add('modal-enter');
+
+    requestAnimationFrame(() => {
+      if (!elements.messageOverlay || !elements.messageBox) return;
+
+      elements.messageOverlay.classList.remove('overlay-enter');
+      elements.messageOverlay.classList.add('overlay-enter-active');
+      elements.messageBox.classList.remove('modal-enter');
+      elements.messageBox.classList.add('modal-enter-active');
+
+      setTimeout(() => {
+        if (!elements.messageOverlay || !elements.messageBox) return;
+        elements.messageOverlay.classList.remove('overlay-enter-active');
+        elements.messageBox.classList.remove('modal-enter-active');
+        isMessageAnimating = false;
+      }, 300);
+    });
+  }
+
+  function closeMessage() {
+    if (!elements.messageOverlay || !elements.messageBox || isMessageAnimating) return;
+
+    isMessageAnimating = true;
+
+    elements.messageOverlay.classList.add('overlay-exit');
+    elements.messageBox.classList.add('modal-exit');
+
+    requestAnimationFrame(() => {
+      if (!elements.messageOverlay || !elements.messageBox) return;
+
+      elements.messageOverlay.classList.remove('overlay-exit');
+      elements.messageOverlay.classList.add('overlay-exit-active');
+      elements.messageBox.classList.remove('modal-exit');
+      elements.messageBox.classList.add('modal-exit-active');
+
+      setTimeout(() => {
+        if (!elements.messageOverlay || !elements.messageBox) return;
+        elements.messageOverlay.classList.remove('overlay-exit-active');
+        elements.messageBox.classList.remove('modal-exit-active');
+        elements.messageOverlay.classList.add('hidden');
+        elements.messageOverlay.classList.remove('flex');
+
+        const callback = messageOnClose;
+        messageOnClose = null;
+        isMessageAnimating = false;
+
+        if (callback) callback();
+      }, 300);
+    });
   }
 
   function validateForm() {
@@ -32,27 +95,8 @@
     const email = elements.emailInput?.value.trim() || '';
     const message = elements.messageInput?.value.trim() || '';
 
-    if (!name) {
-      alert('Please enter your name.');
-      elements.nameInput?.focus();
-      return false;
-    }
-
-    if (!email) {
-      alert('Please enter your email.');
-      elements.emailInput?.focus();
-      return false;
-    }
-
-    if (!validateEmail(email)) {
-      alert('Please enter a valid email address.');
-      elements.emailInput?.focus();
-      return false;
-    }
-
-    if (!message) {
-      alert('Please enter your message.');
-      elements.messageInput?.focus();
+    if (!name || !email || !validateEmail(email) || !message) {
+      showMessage('Please fill all required fields');
       return false;
     }
 
@@ -122,18 +166,14 @@
 
     isSubmitting = true;
 
-    const sanitizedName = sanitizeInput(elements.nameInput?.value);
-    const sanitizedEmail = sanitizeInput(elements.emailInput?.value);
-    const sanitizedMessage = sanitizeInput(elements.messageInput?.value);
-
-    alert('Thank you for your message!');
-
     elements.contactForm?.reset();
-    closeModal();
 
-    setTimeout(() => {
-      isSubmitting = false;
-    }, 1000);
+    showMessage('Thank you for your message!', () => {
+      closeModal();
+      setTimeout(() => {
+        isSubmitting = false;
+      }, 300);
+    });
   }
 
   function init() {
@@ -153,8 +193,19 @@
       });
     }
 
+    if (elements.messageOkBtn) {
+      elements.messageOkBtn.addEventListener('click', closeMessage);
+    }
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && elements.overlay && !elements.overlay.classList.contains('hidden')) {
+      if (e.key !== 'Escape') return;
+
+      if (elements.messageOverlay && !elements.messageOverlay.classList.contains('hidden')) {
+        closeMessage();
+        return;
+      }
+
+      if (elements.overlay && !elements.overlay.classList.contains('hidden')) {
         closeModal();
       }
     });
