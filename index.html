@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal Popup - Claymorphism</title>
+  <link rel="stylesheet" href="./dist/output.css">
+  <style>
+    .clay-button {
+      box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+    }
+    .clay-button:hover {
+      box-shadow: 10px 10px 20px #d1d1d1, -10px -10px 20px #ffffff;
+    }
+    .clay-modal {
+      box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
+    }
+    .clay-input {
+      box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff;
+    }
+    .clay-submit {
+      box-shadow: 6px 6px 12px #b8c0ff, -6px -6px 12px #e0e3ff;
+    }
+    .clay-submit:hover {
+      box-shadow: 8px 8px 16px #b8c0ff, -8px -8px 16px #e0e3ff;
+    }
+    .modal-enter {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    .modal-enter-active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      transition: opacity 300ms ease-out, transform 300ms ease-out;
+    }
+    .modal-exit {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    .modal-exit-active {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+      transition: opacity 300ms ease-in, transform 300ms ease-in;
+    }
+    .overlay-enter {
+      opacity: 0;
+    }
+    .overlay-enter-active {
+      opacity: 1;
+      transition: opacity 300ms ease-out;
+    }
+    .overlay-exit {
+      opacity: 1;
+    }
+    .overlay-exit-active {
+      opacity: 0;
+      transition: opacity 300ms ease-in;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
+  <div class="text-center">
+    <button id="openModalBtn" class="clay-button bg-gray-100 text-gray-800 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105">
+      Open Contact Form
+    </button>
+  </div>
+
+  <div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+    <div id="modal" class="bg-gray-100 rounded-3xl p-8 w-full max-w-md clay-modal">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Contact Us</h2>
+        <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <form id="contactForm" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+          <input type="text" id="name" class="w-full bg-gray-100 rounded-xl px-4 py-3 outline-none clay-input" placeholder="Your name">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="email" class="w-full bg-gray-100 rounded-xl px-4 py-3 outline-none clay-input" placeholder="your@email.com">
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+          <textarea id="message" rows="4" class="w-full bg-gray-100 rounded-xl px-4 py-3 outline-none clay-input resize-none" placeholder="Your message..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-indigo-100 text-indigo-800 font-semibold py-3 px-6 rounded-xl clay-submit transition-all duration-300 hover:scale-[1.02]">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
