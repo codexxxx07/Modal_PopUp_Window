@@ -6,23 +6,48 @@
   <title>Modal Popup - Claymorphism</title>
   <link rel="stylesheet" href="./dist/output.css">
   <style>
+    body {
+      background: linear-gradient(145deg, #e0e0e0, #f0f0f0);
+    }
     .clay-button {
+      background: linear-gradient(145deg, #e6e6e6, #ffffff);
       box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+      transition: all 0.2s ease-in-out;
     }
     .clay-button:hover {
-      box-shadow: 10px 10px 20px #d1d1d1, -10px -10px 20px #ffffff;
+      background: linear-gradient(145deg, #ffffff, #e6e6e6);
+      box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
+      transform: translateY(-2px);
+    }
+    .clay-button:active {
+      box-shadow: 4px 4px 8px #d1d1d1, -4px -4px 8px #ffffff;
+      transform: translateY(1px);
     }
     .clay-modal {
+      background: linear-gradient(145deg, #e6e6e6, #ffffff);
       box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
     }
     .clay-input {
+      background: linear-gradient(145deg, #e6e6e6, #ffffff);
       box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff;
+      transition: all 0.2s ease-in-out;
+    }
+    .clay-input:focus {
+      box-shadow: inset 6px 6px 12px #d1d1d1, inset -6px -6px 12px #ffffff;
     }
     .clay-submit {
-      box-shadow: 6px 6px 12px #b8c0ff, -6px -6px 12px #e0e3ff;
+      background: linear-gradient(145deg, #c7d2fe, #e0e7ff);
+      box-shadow: 6px 6px 12px #a5b4fc, -6px -6px 12px #eef2ff;
+      transition: all 0.2s ease-in-out;
     }
     .clay-submit:hover {
-      box-shadow: 8px 8px 16px #b8c0ff, -8px -8px 16px #e0e3ff;
+      background: linear-gradient(145deg, #e0e7ff, #c7d2fe);
+      box-shadow: 8px 8px 16px #a5b4fc, -8px -8px 16px #eef2ff;
+      transform: translateY(-1px);
+    }
+    .clay-submit:active {
+      box-shadow: 3px 3px 6px #a5b4fc, -3px -3px 6px #eef2ff;
+      transform: translateY(1px);
     }
     .modal-enter {
       opacity: 0;
@@ -58,15 +83,15 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4">
   <div class="text-center">
-    <button id="openModalBtn" class="clay-button bg-gray-100 text-gray-800 font-semibold py-4 px-8 rounded-2xl transition-all duration-300 hover:scale-105">
+    <button id="openModalBtn" class="clay-button text-gray-800 font-semibold py-4 px-8 rounded-2xl">
       Open Contact Form
     </button>
   </div>
 
   <div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
-    <div id="modal" class="bg-gray-100 rounded-3xl p-8 w-full max-w-md clay-modal">
+    <div id="modal" class="rounded-3xl p-8 w-full max-w-md clay-modal">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800">Contact Us</h2>
         <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800 transition-colors">
@@ -78,17 +103,17 @@
       <form id="contactForm" class="space-y-4">
         <div>
           <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-          <input type="text" id="name" class="w-full bg-gray-100 rounded-xl px-4 py-3 outline-none clay-input" placeholder="Your name">
+          <input type="text" id="name" class="w-full rounded-xl px-4 py-3 outline-none clay-input" placeholder="Your name">
         </div>
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input type="email" id="email" class="w-full bg-gray-100 rounded-xl px-4 py-3 outline-none clay-input" placeholder="your@email.com">
+          <input type="email" id="email" class="w-full rounded-xl px-4 py-3 outline-none clay-input" placeholder="your@email.com">
         </div>
         <div>
           <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-          <textarea id="message" rows="4" class="w-full bg-gray-100 rounded-xl px-4 py-3 outline-none clay-input resize-none" placeholder="Your message..."></textarea>
+          <textarea id="message" rows="4" class="w-full rounded-xl px-4 py-3 outline-none clay-input resize-none" placeholder="Your message..."></textarea>
         </div>
-        <button type="submit" class="w-full bg-indigo-100 text-indigo-800 font-semibold py-3 px-6 rounded-xl clay-submit transition-all duration-300 hover:scale-[1.02]">
+        <button type="submit" class="w-full text-indigo-800 font-semibold py-3 px-6 rounded-xl clay-submit">
           Send Message
         </button>
       </form>
