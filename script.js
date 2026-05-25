@@ -13,7 +13,9 @@
     messageOverlay: document.getElementById('messageOverlay'),
     messageBox: document.getElementById('messageBox'),
     messageText: document.getElementById('messageText'),
-    messageOkBtn: document.getElementById('messageOkBtn')
+    messageOkBtn: document.getElementById('messageOkBtn'),
+    themeToggle: document.getElementById('themeToggle'),
+    themeToggleIcon: document.getElementById('themeToggleIcon')
   };
 
   let isAnimating = false;
@@ -176,7 +178,28 @@
     });
   }
 
+  function initThemeToggle() {
+    const root = document.documentElement;
+
+    root.classList.remove('dark');
+
+    if (elements.themeToggleIcon) {
+      elements.themeToggleIcon.textContent = '🌙';
+    }
+
+    if (!elements.themeToggle) return;
+
+    elements.themeToggle.addEventListener('click', () => {
+      const isDark = root.classList.toggle('dark');
+      if (elements.themeToggleIcon) {
+        elements.themeToggleIcon.textContent = isDark ? '☀️' : '🌙';
+      }
+    });
+  }
+
   function init() {
+    initThemeToggle();
+
     if (elements.openModalBtn) {
       elements.openModalBtn.addEventListener('click', openModal);
     }
