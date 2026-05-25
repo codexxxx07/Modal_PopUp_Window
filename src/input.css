@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .modal-enter {
+    @apply opacity-0 scale-[0.95] translate-y-[10px];
+  }
+  .modal-enter-active {
+    @apply opacity-100 scale-100 translate-y-0 transition-[opacity,transform] duration-300 ease-out;
+  }
+  .modal-exit {
+    @apply opacity-100 scale-100 translate-y-0;
+  }
+  .modal-exit-active {
+    @apply opacity-0 scale-[0.95] translate-y-[10px] transition-[opacity,transform] duration-300 ease-in;
+  }
+  .overlay-enter {
+    @apply opacity-0;
+  }
+  .overlay-enter-active {
+    @apply opacity-100 transition-opacity duration-300 ease-out;
+  }
+  .overlay-exit {
+    @apply opacity-100;
+  }
+  .overlay-exit-active {
+    @apply opacity-0 transition-opacity duration-300 ease-in;
+  }
+}

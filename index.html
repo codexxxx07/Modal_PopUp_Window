@@ -1,216 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-colors duration-300 ease-in-out">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modal Popup Window</title>
   <link rel="stylesheet" href="./dist/output.css">
-  <style>
-    html {
-      transition: color 0.3s ease;
-    }
-    body {
-      background: linear-gradient(145deg, #e0e0e0, #f0f0f0);
-      transition: background 0.3s ease;
-    }
-    .clay-button {
-      background: linear-gradient(145deg, #e6e6e6, #ffffff);
-      box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
-      transition: all 0.2s ease-in-out;
-    }
-    .clay-button:hover {
-      background: linear-gradient(145deg, #ffffff, #e6e6e6);
-      box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
-      transform: translateY(-2px);
-    }
-    .clay-button:active {
-      box-shadow: 4px 4px 8px #d1d1d1, -4px -4px 8px #ffffff;
-      transform: translateY(1px);
-    }
-    .clay-modal {
-      background: linear-gradient(145deg, #e6e6e6, #ffffff);
-      box-shadow: 12px 12px 24px #d1d1d1, -12px -12px 24px #ffffff;
-    }
-    .clay-input {
-      background: linear-gradient(145deg, #e6e6e6, #ffffff);
-      box-shadow: inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff;
-      transition: all 0.2s ease-in-out;
-    }
-    .clay-input:focus {
-      box-shadow: inset 6px 6px 12px #d1d1d1, inset -6px -6px 12px #ffffff;
-    }
-    .clay-submit {
-      background: linear-gradient(145deg, #c7d2fe, #e0e7ff);
-      box-shadow: 6px 6px 12px #a5b4fc, -6px -6px 12px #eef2ff;
-      transition: all 0.2s ease-in-out;
-    }
-    .clay-submit:hover {
-      background: linear-gradient(145deg, #e0e7ff, #c7d2fe);
-      box-shadow: 8px 8px 16px #a5b4fc, -8px -8px 16px #eef2ff;
-      transform: translateY(-1px);
-    }
-    .clay-submit:active {
-      box-shadow: 3px 3px 6px #a5b4fc, -3px -3px 6px #eef2ff;
-      transform: translateY(1px);
-    }
-    .modal-enter {
-      opacity: 0;
-      transform: scale(0.95) translateY(10px);
-    }
-    .modal-enter-active {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      transition: opacity 300ms ease-out, transform 300ms ease-out;
-    }
-    .modal-exit {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    .modal-exit-active {
-      opacity: 0;
-      transform: scale(0.95) translateY(10px);
-      transition: opacity 300ms ease-in, transform 300ms ease-in;
-    }
-    .overlay-enter {
-      opacity: 0;
-    }
-    .overlay-enter-active {
-      opacity: 1;
-      transition: opacity 300ms ease-out;
-    }
-    .overlay-exit {
-      opacity: 1;
-    }
-    .overlay-exit-active {
-      opacity: 0;
-      transition: opacity 300ms ease-in;
-    }
-    #messageOverlay {
-      z-index: 60;
-    }
-    #messageBox {
-      width: 300px;
-      max-width: 90%;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.12),
-        8px 8px 16px #d1d1d1,
-        -8px -8px 16px #ffffff;
-    }
-    #messageText {
-      font-size: 15px;
-      line-height: 1.5;
-      max-width: 100%;
-      margin: 0 auto;
-      word-wrap: break-word;
-    }
-    #messageOkBtn {
-      padding: 6px 14px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-top: 10px;
-      border-radius: 10px;
-      box-shadow: 4px 4px 10px #d1d1d1, -4px -4px 10px #ffffff;
-    }
-    #messageOkBtn:hover {
-      box-shadow: 6px 6px 14px #d1d1d1, -6px -6px 14px #ffffff;
-    }
-    #messageOkBtn:active {
-      box-shadow: 2px 2px 6px #d1d1d1, -2px -2px 6px #ffffff;
-    }
-    html.dark body {
-      background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
-    }
-    html.dark .clay-button {
-      background: linear-gradient(145deg, #2d2d2d, #3a3a3a);
-      box-shadow: 8px 8px 16px #121212, -8px -8px 16px #454545;
-    }
-    html.dark .clay-button:hover {
-      background: linear-gradient(145deg, #3a3a3a, #2d2d2d);
-      box-shadow: 12px 12px 24px #121212, -12px -12px 24px #454545;
-    }
-    html.dark .clay-button:active {
-      box-shadow: 4px 4px 8px #121212, -4px -4px 8px #454545;
-    }
-    html.dark .clay-modal {
-      background: linear-gradient(145deg, #2d2d2d, #3a3a3a);
-      box-shadow: 12px 12px 24px #121212, -12px -12px 24px #454545;
-    }
-    html.dark .clay-input {
-      background: linear-gradient(145deg, #252525, #333333);
-      box-shadow: inset 4px 4px 8px #121212, inset -4px -4px 8px #404040;
-      color: #e5e5e5;
-    }
-    html.dark .clay-input::placeholder {
-      color: #9ca3af;
-    }
-    html.dark .clay-input:focus {
-      box-shadow: inset 6px 6px 12px #121212, inset -6px -6px 12px #404040;
-    }
-    html.dark .clay-submit {
-      background: linear-gradient(145deg, #3730a3, #4f46e5);
-      box-shadow: 6px 6px 12px #1e1b4b, -6px -6px 12px #6366f1;
-    }
-    html.dark .clay-submit:hover {
-      background: linear-gradient(145deg, #4f46e5, #3730a3);
-      box-shadow: 8px 8px 16px #1e1b4b, -8px -8px 16px #6366f1;
-    }
-    html.dark .clay-submit:active {
-      box-shadow: 3px 3px 6px #1e1b4b, -3px -3px 6px #6366f1;
-    }
-    html.dark #messageBox {
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        8px 8px 16px #121212,
-        -8px -8px 16px #454545;
-    }
-    html.dark #messageOkBtn {
-      box-shadow: 4px 4px 10px #121212, -4px -4px 10px #454545;
-    }
-    html.dark #messageOkBtn:hover {
-      box-shadow: 6px 6px 14px #121212, -6px -6px 14px #454545;
-    }
-    html.dark #messageOkBtn:active {
-      box-shadow: 2px 2px 6px #121212, -2px -2px 6px #454545;
-    }
-    .theme-toggle {
-      transition: all 0.2s ease-in-out, transform 0.3s ease;
-    }
-    .theme-toggle-icon {
-      transition: transform 0.3s ease;
-    }
-    html.dark .theme-toggle-icon {
-      transform: rotate(15deg);
-    }
-    .clay-footer {
-      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06), 4px -4px 8px #d1d1d1, -4px -4px 8px #ffffff;
-      transition: box-shadow 0.3s ease;
-    }
-    html.dark .clay-footer {
-      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25), 4px -4px 8px #121212, -4px -4px 8px #454545;
-    }
-  </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4 bg-[linear-gradient(145deg,#e0e0e0,#f0f0f0)] transition-[background] duration-300 ease-in-out dark:bg-[linear-gradient(145deg,#1a1a1a,#2a2a2a)]">
   <button
     id="themeToggle"
     type="button"
-    class="theme-toggle clay-button fixed top-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-2xl text-xl"
+    class="theme-toggle clay-button fixed top-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-2xl text-xl bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] shadow-[8px_8px_16px_#d1d1d1,-8px_-8px_16px_#ffffff] transition-all duration-300 ease-in-out hover:bg-[linear-gradient(145deg,#ffffff,#e6e6e6)] hover:shadow-[12px_12px_24px_#d1d1d1,-12px_-12px_24px_#ffffff] hover:-translate-y-0.5 active:shadow-[4px_4px_8px_#d1d1d1,-4px_-4px_8px_#ffffff] active:translate-y-px dark:bg-[linear-gradient(145deg,#2d2d2d,#3a3a3a)] dark:shadow-[8px_8px_16px_#121212,-8px_-8px_16px_#454545] dark:hover:bg-[linear-gradient(145deg,#3a3a3a,#2d2d2d)] dark:hover:shadow-[12px_12px_24px_#121212,-12px_-12px_24px_#454545] dark:active:shadow-[4px_4px_8px_#121212,-4px_-4px_8px_#454545]"
     aria-label="Toggle light and dark mode"
     title="Toggle theme"
   >
-    <span id="themeToggleIcon" class="theme-toggle-icon" aria-hidden="true">🌙</span>
+    <span id="themeToggleIcon" class="theme-toggle-icon transition-transform duration-300 ease-in-out dark:rotate-[15deg]" aria-hidden="true">🌙</span>
   </button>
 
   <div class="text-center">
-    <button id="openModalBtn" class="clay-button text-gray-800 dark:text-gray-200 font-semibold py-4 px-8 rounded-2xl transition-colors duration-300">
+    <button id="openModalBtn" class="clay-button text-gray-800 dark:text-gray-200 font-semibold py-4 px-8 rounded-2xl transition-colors duration-300 bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] shadow-[8px_8px_16px_#d1d1d1,-8px_-8px_16px_#ffffff] transition-all duration-200 ease-in-out hover:bg-[linear-gradient(145deg,#ffffff,#e6e6e6)] hover:shadow-[12px_12px_24px_#d1d1d1,-12px_-12px_24px_#ffffff] hover:-translate-y-0.5 active:shadow-[4px_4px_8px_#d1d1d1,-4px_-4px_8px_#ffffff] active:translate-y-px dark:bg-[linear-gradient(145deg,#2d2d2d,#3a3a3a)] dark:shadow-[8px_8px_16px_#121212,-8px_-8px_16px_#454545] dark:hover:bg-[linear-gradient(145deg,#3a3a3a,#2d2d2d)] dark:hover:shadow-[12px_12px_24px_#121212,-12px_-12px_24px_#454545] dark:active:shadow-[4px_4px_8px_#121212,-4px_-4px_8px_#454545]">
       Open Contact Form
     </button>
   </div>
 
   <div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
-    <div id="modal" class="rounded-3xl p-8 w-full max-w-md clay-modal">
+    <div id="modal" class="rounded-3xl p-8 w-full max-w-md clay-modal bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] shadow-[12px_12px_24px_#d1d1d1,-12px_-12px_24px_#ffffff] dark:bg-[linear-gradient(145deg,#2d2d2d,#3a3a3a)] dark:shadow-[12px_12px_24px_#121212,-12px_-12px_24px_#454545]">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 transition-colors duration-300">Contact Us</h2>
         <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-300">
@@ -222,34 +36,34 @@
       <form id="contactForm" class="space-y-4">
         <div>
           <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-300">Name</label>
-          <input type="text" id="name" class="w-full rounded-xl px-4 py-3 outline-none clay-input" placeholder="Your name">
+          <input type="text" id="name" class="w-full rounded-xl px-4 py-3 outline-none clay-input bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] shadow-[inset_4px_4px_8px_#d1d1d1,inset_-4px_-4px_8px_#ffffff] transition-all duration-200 ease-in-out focus:shadow-[inset_6px_6px_12px_#d1d1d1,inset_-6px_-6px_12px_#ffffff] dark:bg-[linear-gradient(145deg,#252525,#333333)] dark:shadow-[inset_4px_4px_8px_#121212,inset_-4px_-4px_8px_#404040] dark:text-[#e5e5e5] dark:placeholder:text-gray-400 dark:focus:shadow-[inset_6px_6px_12px_#121212,inset_-6px_-6px_12px_#404040]" placeholder="Your name">
         </div>
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-300">Email</label>
-          <input type="email" id="email" class="w-full rounded-xl px-4 py-3 outline-none clay-input" placeholder="your@email.com">
+          <input type="email" id="email" class="w-full rounded-xl px-4 py-3 outline-none clay-input bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] shadow-[inset_4px_4px_8px_#d1d1d1,inset_-4px_-4px_8px_#ffffff] transition-all duration-200 ease-in-out focus:shadow-[inset_6px_6px_12px_#d1d1d1,inset_-6px_-6px_12px_#ffffff] dark:bg-[linear-gradient(145deg,#252525,#333333)] dark:shadow-[inset_4px_4px_8px_#121212,inset_-4px_-4px_8px_#404040] dark:text-[#e5e5e5] dark:placeholder:text-gray-400 dark:focus:shadow-[inset_6px_6px_12px_#121212,inset_-6px_-6px_12px_#404040]" placeholder="your@email.com">
         </div>
         <div>
           <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors duration-300">Message</label>
-          <textarea id="message" rows="4" class="w-full rounded-xl px-4 py-3 outline-none clay-input resize-none" placeholder="Your message..."></textarea>
+          <textarea id="message" rows="4" class="w-full rounded-xl px-4 py-3 outline-none clay-input resize-none bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] shadow-[inset_4px_4px_8px_#d1d1d1,inset_-4px_-4px_8px_#ffffff] transition-all duration-200 ease-in-out focus:shadow-[inset_6px_6px_12px_#d1d1d1,inset_-6px_-6px_12px_#ffffff] dark:bg-[linear-gradient(145deg,#252525,#333333)] dark:shadow-[inset_4px_4px_8px_#121212,inset_-4px_-4px_8px_#404040] dark:text-[#e5e5e5] dark:placeholder:text-gray-400 dark:focus:shadow-[inset_6px_6px_12px_#121212,inset_-6px_-6px_12px_#404040]" placeholder="Your message..."></textarea>
         </div>
-        <button type="submit" class="w-full text-indigo-800 dark:text-indigo-100 font-semibold py-3 px-6 rounded-xl clay-submit transition-colors duration-300">
+        <button type="submit" class="w-full text-indigo-800 dark:text-indigo-100 font-semibold py-3 px-6 rounded-xl clay-submit transition-colors duration-300 bg-[linear-gradient(145deg,#c7d2fe,#e0e7ff)] shadow-[6px_6px_12px_#a5b4fc,-6px_-6px_12px_#eef2ff] transition-all duration-200 ease-in-out hover:bg-[linear-gradient(145deg,#e0e7ff,#c7d2fe)] hover:shadow-[8px_8px_16px_#a5b4fc,-8px_-8px_16px_#eef2ff] hover:-translate-y-px active:shadow-[3px_3px_6px_#a5b4fc,-3px_-3px_6px_#eef2ff] active:translate-y-px dark:bg-[linear-gradient(145deg,#3730a3,#4f46e5)] dark:shadow-[6px_6px_12px_#1e1b4b,-6px_-6px_12px_#6366f1] dark:hover:bg-[linear-gradient(145deg,#4f46e5,#3730a3)] dark:hover:shadow-[8px_8px_16px_#1e1b4b,-8px_-8px_16px_#6366f1] dark:active:shadow-[3px_3px_6px_#1e1b4b,-3px_-3px_6px_#6366f1]">
           Send Message
         </button>
       </form>
     </div>
   </div>
 
-  <div id="messageOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center">
-    <div id="messageBox" class="clay-modal text-center">
-      <p id="messageText" class="text-gray-800 dark:text-gray-200 transition-colors duration-300"></p>
-      <button id="messageOkBtn" type="button" class="clay-button text-gray-800 dark:text-gray-200 transition-colors duration-300">
+  <div id="messageOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-[60]">
+    <div id="messageBox" class="clay-modal text-center w-[300px] max-w-[90%] p-4 rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.12),8px_8px_16px_#d1d1d1,-8px_-8px_16px_#ffffff] bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] dark:bg-[linear-gradient(145deg,#2d2d2d,#3a3a3a)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4),8px_8px_16px_#121212,-8px_-8px_16px_#454545]">
+      <p id="messageText" class="text-gray-800 dark:text-gray-200 transition-colors duration-300 text-[15px] leading-[1.5] max-w-full mx-auto break-words"></p>
+      <button id="messageOkBtn" type="button" class="clay-button text-gray-800 dark:text-gray-200 transition-colors duration-300 bg-[linear-gradient(145deg,#e6e6e6,#ffffff)] transition-all duration-200 ease-in-out hover:bg-[linear-gradient(145deg,#ffffff,#e6e6e6)] hover:-translate-y-0.5 active:translate-y-px dark:bg-[linear-gradient(145deg,#2d2d2d,#3a3a3a)] dark:hover:bg-[linear-gradient(145deg,#3a3a3a,#2d2d2d)] py-[6px] px-[14px] text-sm font-semibold mt-2.5 rounded-[10px] shadow-[4px_4px_10px_#d1d1d1,-4px_-4px_10px_#ffffff] hover:shadow-[6px_6px_14px_#d1d1d1,-6px_-6px_14px_#ffffff] active:shadow-[2px_2px_6px_#d1d1d1,-2px_-2px_6px_#ffffff] dark:shadow-[4px_4px_10px_#121212,-4px_-4px_10px_#454545] dark:hover:shadow-[6px_6px_14px_#121212,-6px_-6px_14px_#454545] dark:active:shadow-[2px_2px_6px_#121212,-2px_-2px_6px_#454545]">
         OK
       </button>
     </div>
   </div>
 
   <footer
-    class="clay-footer fixed bottom-0 left-0 z-10 w-full text-center py-3 text-sm backdrop-blur-md bg-white/70 dark:bg-black/50 text-gray-600 dark:text-gray-300 transition-colors duration-300"
+    class="clay-footer fixed bottom-0 left-0 z-10 w-full text-center py-3 text-sm backdrop-blur-md bg-white/70 dark:bg-black/50 text-gray-600 dark:text-gray-300 transition-colors duration-300 shadow-[0_-4px_16px_rgba(0,0,0,0.06),4px_-4px_8px_#d1d1d1,-4px_-4px_8px_#ffffff] transition-[box-shadow] duration-300 ease-in-out dark:shadow-[0_-4px_16px_rgba(0,0,0,0.25),4px_-4px_8px_#121212,-4px_-4px_8px_#454545]"
     role="contentinfo"
   >
     <p>© 2026 Krish | Built with ❤️ and Code | All Rights Reserved</p>
