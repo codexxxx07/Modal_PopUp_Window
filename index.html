@@ -183,6 +183,13 @@
     html.dark .theme-toggle-icon {
       transform: rotate(15deg);
     }
+    .clay-footer {
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06), 4px -4px 8px #d1d1d1, -4px -4px 8px #ffffff;
+      transition: box-shadow 0.3s ease;
+    }
+    html.dark .clay-footer {
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25), 4px -4px 8px #121212, -4px -4px 8px #454545;
+    }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -240,7 +247,14 @@
       </button>
     </div>
   </div>
-  
+
+  <footer
+    class="clay-footer fixed bottom-0 left-0 z-10 w-full text-center py-3 text-sm backdrop-blur-md bg-white/70 dark:bg-black/50 text-gray-600 dark:text-gray-300 transition-colors duration-300"
+    role="contentinfo"
+  >
+    <p>© 2026 Krish | Built with ❤️ and Code | All Rights Reserved</p>
+  </footer>
+
   <script src="./script.js"></script>
 </body>
 </html>
