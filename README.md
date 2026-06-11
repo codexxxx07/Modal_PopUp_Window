@@ -12,7 +12,10 @@ Screenshots demonstrating the modal in action:
 - **Modal Open State** – Contact form with smooth entrance animation
 - **Overlay Effect** – Backdrop blur with focus on modal content
 
-> Screenshots can be found in the `/screenshots` folder (add your project screenshots here)
+   ![Light Mode](/assets/LightMode(Btn).png)
+   ![Light Mode](/assets/LightMode(PopUp).png)
+   ![Dark Mode](/assets/DarkMode(Btn).png)
+   ![Dark Mode](/assets/DarkMode(PopUp).png)
 
 ---
 
